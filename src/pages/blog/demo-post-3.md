@@ -6,7 +6,7 @@ author: "Turom"
 category: "Authoring"
 layout: "../../layouts/BlogPostLayout.astro"
 image:
-    url: "/Astro-tutorial/cover-images/blog_cover_demo.png"
+    url: "/cover-images/blog_cover_demo.png"
     alt: "Starry sky coding setup"
 ---
 

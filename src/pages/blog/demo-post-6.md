@@ -6,7 +6,7 @@ author: "Turom"
 category: "DevOps"
 layout: "../../layouts/BlogPostLayout.astro"
 image:
-    url: "/Astro-tutorial/cover-images/blog_cover_6.png"
+    url: "/cover-images/blog_cover_6.png"
     alt: "Glowing gear mechanisms of a data server"
 ---
 

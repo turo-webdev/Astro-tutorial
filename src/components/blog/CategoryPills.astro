@@ -5,7 +5,7 @@ const base = import.meta.env.BASE_URL;
 
 <div class="category-pills" id="categoryPills">
     <a
-        href={`${base}/blog`}
+        href={`/blog`}
         class={`category-pill ${activeCategory === "all" ? "active" : ""}`}
         data-filter="all"
     >
@@ -14,7 +14,7 @@ const base = import.meta.env.BASE_URL;
     {
         categories.map((category: string) => (
             <a
-                href={`${base}/blog/category/${category}`}
+                href={`/blog/category/${category}`}
                 data-filter={category}
                 class={`category-pill ${activeCategory === category ? "active" : ""}`}
             >

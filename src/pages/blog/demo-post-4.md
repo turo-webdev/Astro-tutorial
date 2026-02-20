@@ -6,7 +6,7 @@ author: "Turom"
 category: "Architecture"
 layout: "../../layouts/BlogPostLayout.astro"
 image:
-    url: "/Astro-tutorial/cover-images/blog_cover_4.png"
+    url: "/cover-images/blog_cover_4.png"
     alt: "A glowing 3D cube server database cluster"
 ---
 

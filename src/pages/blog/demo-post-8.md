@@ -6,7 +6,7 @@ author: "Turom"
 category: "Architecture"
 layout: "../../layouts/BlogPostLayout.astro"
 image:
-    url: "/Astro-tutorial/cover-images/blog_cover_8.png"
+    url: "/cover-images/blog_cover_8.png"
     alt: "Glowing nodes representing architectural data flow"
 ---
 
@@ -21,7 +21,7 @@ One of the most common mistakes developers make is throwing everything into a gl
 *   **Local State:** Data that only a single component (or its immediate children) needs to know about. Examples: The "open/closed" toggle of a dropdown menu, or the current value of a text input.
 *   **Global State:** Data that needs to be accessed and mutated by many different, disconnected parts of the application. Examples: The current logged-in user, global theme preferences (dark/light mode), or items in a shopping cart.
 
-![Data Flow Diagram](/Astro-tutorial/cover-images/blog_cover_8.png)
+![Data Flow Diagram](/cover-images/blog_cover_8.png)
 
 ### The Trend Toward Server State
 

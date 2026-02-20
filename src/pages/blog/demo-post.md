@@ -6,7 +6,7 @@ author: "Turom"
 category: "Tutorial"
 layout: "../../layouts/BlogPostLayout.astro"
 image:
-    url: "/Astro-tutorial/cover-images/blog_cover_demo.png"
+    url: "/cover-images/blog_cover_demo.png"
     alt: "A sleek glowing modern laptop floating in space"
 ---
 
@@ -28,7 +28,7 @@ You can easily write formatted content:
 
 You can use the standard Markdown syntax to add images! If you place an image in the `src/assets/` directory, Astro will automatically optimize it, crop it, and compress it for you:
 
-![My awesome blog cover](/Astro-tutorial/cover-images/blog_cover_demo.png)
+![My awesome blog cover](/cover-images/blog_cover_demo.png)
 
 ### Code Snippets
 

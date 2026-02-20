@@ -6,7 +6,7 @@ author: "Turom"
 category: "Frontend"
 layout: "../../layouts/BlogPostLayout.astro"
 image:
-    url: "/Astro-tutorial/cover-images/blog_cover_7.png"
+    url: "/cover-images/blog_cover_7.png"
     alt: "A futuristic holographic web development interface"
 ---
 
@@ -31,7 +31,7 @@ import InteractiveChart from '../components/InteractiveChart.vue';
 ### 3. Native CSS Capabilities
 The gap between preprocessors (like Sass) and native CSS is closing. With features like CSS Nesting, Container Queries, and modern Color Functions now natively supported in browsers, the need for complex CSS toolchains is diminishing.
 
-![Futuristic UI Design](/Astro-tutorial/cover-images/blog_cover_7.png)
+![Futuristic UI Design](/cover-images/blog_cover_7.png)
 
 ## What's Next?
 As AI begins to assist more in the boilerplate generation of UI components, frontend developers will increasingly shift their focus toward complex state management, accessibility, and high-level architectural decisions. 

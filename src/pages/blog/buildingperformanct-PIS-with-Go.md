@@ -6,7 +6,7 @@ author: "Turom"
 category: "Web Development"
 layout: "../../layouts/BlogPostLayout.astro"
 image:
-    url: "/Astro-tutorial/cover-images/blog_cover_9.png"
+    url: "/cover-images/blog_cover_9.png"
     alt: "A sleek glowing modern server room"
 ---
 
