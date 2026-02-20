@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://turom1.github.io',
+  site: 'https://turo-webdev.github.io',
   base: '/Astro-tutorial',
   integrations: [sitemap()]
 });
