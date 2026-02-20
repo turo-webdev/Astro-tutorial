@@ -1,10 +1,11 @@
 ---
 const { categories, activeCategory = "all" } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <div class="category-pills" id="categoryPills">
     <a
-        href="/blog"
+        href={`${base}blog`}
         class={`category-pill ${activeCategory === "all" ? "active" : ""}`}
         data-filter="all"
     >
@@ -13,7 +14,7 @@ const { categories, activeCategory = "all" } = Astro.props;
     {
         categories.map((category: string) => (
             <a
-                href={`/blog/category/${category}`}
+                href={`${base}blog/category/${category}`}
                 data-filter={category}
                 class={`category-pill ${activeCategory === category ? "active" : ""}`}
             >

@@ -6,7 +6,7 @@ author: "Turom"
 category: "Performance"
 layout: "../../layouts/BlogPostLayout.astro"
 image:
-    url: "/cover-images/blog_cover_2.png"
+    url: "/Astro-tutorial/cover-images/blog_cover_2.png"
     alt: "A floating neon internet island"
 ---
 

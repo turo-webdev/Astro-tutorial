@@ -2,6 +2,7 @@
 import PostCard from "../PostCard.astro";
 
 const { currentUrl } = Astro.props;
+const base = import.meta.env.BASE_URL;
 
 // Fetch all markdown posts
 const allPosts = await Astro.glob("../../pages/blog/*.md");
@@ -24,7 +25,7 @@ const latestPosts = allPosts
         <section class="latest-posts-section container">
             <header class="section-header">
                 <h2>Keep Reading</h2>
-                <a href="/blog" class="view-all">
+                <a href={`${base}blog`} class="view-all">
                     View All
                 </a>
             </header>

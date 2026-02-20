@@ -6,7 +6,7 @@ author: "Turom"
 category: "Security"
 layout: "../../layouts/BlogPostLayout.astro"
 image:
-    url: "/cover-images/blog_cover_5.png"
+    url: "/Astro-tutorial/cover-images/blog_cover_5.png"
     alt: "A brilliant glowing neon security shield"
 ---
 

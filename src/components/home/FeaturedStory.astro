@@ -1,5 +1,6 @@
 ---
 const { featuredPost } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 {
@@ -7,7 +8,7 @@ const { featuredPost } = Astro.props;
         <section class="featured-section container" id="latest">
             <header class="section-header">
                 <h2>Featured Story</h2>
-                <a href="/blog" class="view-all">
+                <a href={`${base}blog`} class="view-all">
                     View All
                 </a>
             </header>
