@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("astro:page-load", () => {
     const filters = document.querySelectorAll(".category-pill");
     const cards = document.querySelectorAll(".am-card");
 

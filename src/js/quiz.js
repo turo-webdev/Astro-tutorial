@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("astro:page-load", () => {
     const quizForm = document.getElementById("quizForm");
     const resultSection = document.getElementById("quizResult");
     const resultTitleEl = document.getElementById("resultTitle");

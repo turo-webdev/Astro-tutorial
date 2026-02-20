@@ -3,7 +3,10 @@ const { post } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
-<article class="am-card" data-category={post.frontmatter.category}>
+<article
+    class="am-card animate-on-scroll delay-200"
+    data-category={post.frontmatter.category}
+>
     <a
         href={post.url}
         class="am-card-full-link"

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("astro:page-load", () => {
     const copyButtons = document.querySelectorAll(".copy-btn");
 
     copyButtons.forEach((btn) => {
