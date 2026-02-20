@@ -1,0 +1,77 @@
+---
+import PostCard from "../PostCard.astro";
+
+const { currentUrl } = Astro.props;
+
+// Fetch all markdown posts
+const allPosts = await Astro.glob("../../pages/blog/*.md");
+
+// Sort by date descending
+allPosts.sort(
+    (a, b) =>
+        new Date(b.frontmatter.date).valueOf() -
+        new Date(a.frontmatter.date).valueOf(),
+);
+
+// Filter out the current post by URL and take the top 3
+const latestPosts = allPosts
+    .filter((post: any) => post.url !== currentUrl)
+    .slice(0, 3);
+---
+
+{
+    latestPosts.length > 0 && (
+        <section class="latest-posts-section container">
+            <header class="section-header">
+                <h2>Keep Reading</h2>
+                <a href="/blog" class="view-all">
+                    View All
+                </a>
+            </header>
+            <div class="post-container">
+                {latestPosts.map((post: any) => (
+                    <PostCard post={post} />
+                ))}
+            </div>
+        </section>
+    )
+}
+
+<style>
+    .latest-posts-section {
+        margin-top: 6rem;
+        margin-bottom: 4rem;
+        padding-top: 4rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .latest-posts-section {
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.8rem;
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .view-all {
+        color: #6366f1;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .view-all:hover {
+        text-decoration: underline;
+    }
+</style>

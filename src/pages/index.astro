@@ -1,11 +1,82 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import WebhookForm from "../components/WebhookForm.astro";
+import HeroSection from "../components/home/HeroSection.astro";
+import FeaturedStory from "../components/home/FeaturedStory.astro";
+import RecentPosts from "../components/home/RecentPosts.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Fetch all markdown posts
+const allPosts = await Astro.glob("./blog/*.md");
+
+// Sort by date descending
+allPosts.sort(
+	(a, b) =>
+		new Date(b.frontmatter.date).valueOf() -
+		new Date(a.frontmatter.date).valueOf(),
+);
+
+// Get the latest feature post, and the next 4 posts
+const featuredPost = allPosts[0];
+const recentPosts = allPosts.slice(1, 5);
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title="AstroSite Editorials"
+	description="Premium insights on development and tech"
+>
+	<main class="editorial-main">
+		<HeroSection />
+
+		<FeaturedStory featuredPost={featuredPost} />
+
+		<RecentPosts recentPosts={recentPosts} />
+
+		<!-- Keep the connection form -->
+		<section class="connect-section container">
+			<header class="section-header text-center">
+				<h2>Stay Connected</h2>
+				<p>Have a question or want to collaborate? Drop us a line.</p>
+			</header>
+			<WebhookForm />
+		</section>
+	</main>
 </Layout>
+
+<style>
+	.editorial-main {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 6rem;
+		padding-bottom: 4rem;
+	}
+
+	.section-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		margin-bottom: 2rem;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		padding-bottom: 1rem;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.section-header {
+			border-bottom-color: rgba(255, 255, 255, 0.1);
+		}
+	}
+
+	.section-header.text-center {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		border-bottom: none;
+	}
+
+	.section-header h2 {
+		font-size: 2rem;
+		margin: 0;
+		font-weight: 800;
+		letter-spacing: -0.5px;
+	}
+</style>

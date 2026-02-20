@@ -1,0 +1,265 @@
+---
+
+---
+
+<header class="glass-header">
+    <nav class="premium-nav" aria-label="Primary">
+        <div class="nav-container">
+            <a href="/" class="logomark" aria-label="Home">
+                <span class="logo-text"
+                    >Astro<span class="text-gradient">Site</span></span
+                >
+            </a>
+
+            <button
+                class="mobile-toggle"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                id="navToggle"
+            >
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/" class="nav-item">Home</a></li>
+                <li><a href="/about" class="nav-item">About</a></li>
+                <li><a href="/blog" class="nav-item">Blog</a></li>
+                <li><a href="/quiz" class="nav-item">Quiz</a></li>
+                <li><a href="#" class="nav-cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<script src="../js/nav.js"></script>
+
+<style>
+    /* Glassmorphism Header */
+    .glass-header {
+        position: sticky;
+        top: 1.5rem;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        max-width: 900px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 9999px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+        .glass-header {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1.2rem;
+    }
+
+    /* Logo Styling */
+    .logomark {
+        text-decoration: none;
+        font-size: 1.05rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .logo-text {
+        color: var(--txt, #1e293b);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .logo-text {
+            color: #f8fafc;
+        }
+    }
+
+    .text-gradient {
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Desktop Navigation Links */
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-item {
+        text-decoration: none;
+        color: var(--txt, #334155);
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition:
+            color 0.2s ease,
+            transform 0.2s ease;
+        position: relative;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .nav-item {
+            color: #cbd5e1;
+        }
+    }
+
+    .nav-item::after {
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background: linear-gradient(135deg, #6366f1, #a855f7);
+        transition: width 0.3s ease;
+        border-radius: 2px;
+    }
+
+    .nav-item:hover,
+    .nav-item:focus-visible {
+        color: #6366f1;
+    }
+
+    .nav-item:hover::after,
+    .nav-item:focus-visible::after {
+        width: 100%;
+    }
+
+    /* Call to Action Button */
+    .nav-cta {
+        display: inline-block;
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        color: white !important;
+        padding: 0.4rem 1rem;
+        border-radius: 9999px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+        box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
+    }
+
+    .nav-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Mobile Toggle Button */
+    .mobile-toggle {
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        z-index: 1001;
+        box-shadow: none;
+    }
+
+    .hamburger {
+        width: 24px;
+        height: 20px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .hamburger span {
+        display: block;
+        height: 2px;
+        width: 100%;
+        background-color: var(--txt, #1e293b);
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .hamburger span {
+            background-color: #f8fafc;
+        }
+    }
+
+    /* Hamburger Animation to 'X' */
+    .mobile-toggle.active .hamburger span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    .mobile-toggle.active .hamburger span:nth-child(2) {
+        opacity: 0;
+    }
+    .mobile-toggle.active .hamburger span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Responsive Design / Mobile Menu */
+    @media (max-width: 768px) {
+        .mobile-toggle {
+            display: flex; /* Show hamburger on mobile */
+        }
+
+        .nav-links {
+            position: absolute;
+            top: calc(100% + 15px);
+            left: 0;
+            width: 100%;
+            border-radius: 20px;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 2rem 0;
+            gap: 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transform: translateY(-20px); /* Hidden state */
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .nav-links {
+                background: rgba(15, 23, 42, 0.95);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+        }
+
+        .nav-links.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .nav-item {
+            font-size: 1.2rem;
+        }
+
+        .nav-cta {
+            margin-top: 1rem;
+            width: 80%;
+            text-align: center;
+        }
+    }
+</style>

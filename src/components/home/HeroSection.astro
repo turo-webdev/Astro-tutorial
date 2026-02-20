@@ -1,0 +1,105 @@
+---
+
+---
+
+<section class="hero-section">
+    <div class="hero-content">
+        <span class="hero-label">The Digital Publication</span>
+        <h1 class="hero-title">
+            Design. Code. Deploy. <br /><span class="text-gradient"
+                >Iterate.</span
+            >
+        </h1>
+        <p class="hero-subtitle">
+            Premium articles and deep-dives exploring the future of front-end
+            development, software architecture, and cloud engineering.
+        </p>
+        <a href="#latest" class="btn-primary">Explore Articles</a>
+    </div>
+</section>
+
+<style>
+    .hero-section {
+        min-height: 45vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 3rem 2rem;
+        position: relative;
+        background: radial-gradient(
+            circle at center top,
+            rgba(99, 102, 241, 0.15) 0%,
+            transparent 50%
+        );
+    }
+
+    .hero-content {
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .hero-label {
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #6366f1;
+        background: rgba(99, 102, 241, 0.1);
+        padding: 0.4rem 1rem;
+        border-radius: 9999px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.2rem, 6vw, 4rem);
+        line-height: 1.1;
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    .text-gradient {
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+        color: var(--txt);
+        opacity: 0.8;
+        max-width: 600px;
+        margin: 0;
+    }
+
+    .btn-primary {
+        margin-top: 1rem;
+        display: inline-block;
+        background: var(--txt);
+        color: var(--bkg);
+        padding: 0.8rem 2rem;
+        border-radius: 9999px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .btn-primary {
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+        }
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
+    }
+</style>

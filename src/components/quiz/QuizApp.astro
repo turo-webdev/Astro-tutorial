@@ -1,0 +1,335 @@
+---
+// QuizApp.astro
+// Expects `posts` prop (all sorted posts)
+const { posts } = Astro.props;
+
+// We only need basic data in JS to render the recommendation
+const minimalPosts = posts.map((p: any) => ({
+    url: p.url,
+    frontmatter: {
+        title: p.frontmatter.title,
+        description: p.frontmatter.description,
+        category: p.frontmatter.category,
+        image: p.frontmatter.image,
+    },
+}));
+---
+
+<div class="quiz-container">
+    <script
+        id="quiz-data"
+        type="application/json"
+        set:html={JSON.stringify(minimalPosts)}
+    />
+
+    <form id="quizForm" class="quiz-form">
+        <div class="quiz-step">
+            <h3 class="h3">1. What gets you most excited?</h3>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="q1" value="Frontend" required />
+                    <span>Building beautiful, interactive UIs</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="q1" value="Architecture" />
+                    <span>Designing scalable, robust systems</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="q1" value="Web Development" />
+                    <span>Writing high-performance backend logic</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="quiz-step">
+            <h3 class="h3">2. Which tool/language do you prefer?</h3>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="q2" value="Frontend" required />
+                    <span>React, Vue, or native CSS</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="q2" value="Architecture" />
+                    <span>Docker, Kubernetes, or Cloud infra</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="q2" value="Web Development" />
+                    <span>Go, Rust, or Node APIs</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="quiz-step">
+            <h3 class="h3">3. What's your biggest pain point?</h3>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="q3" value="Frontend" required />
+                    <span>Cross-browser CSS bugs</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="q3" value="Architecture" />
+                    <span>State management in complex apps</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="q3" value="Web Development" />
+                    <span>Database bottlenecks and slow APIs</span>
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-primary" style="margin-top: 2rem;"
+            >Find My Next Read</button
+        >
+    </form>
+
+    <div id="quizResult" class="quiz-result" style="display: none;">
+        <h2
+            id="resultTitle"
+            class="h2 text-gradient"
+            style="margin-bottom: 1rem;"
+        >
+        </h2>
+        <p>Based on your answers, we highly recommend this post:</p>
+
+        <div id="recommendedPost" class="recommended-container"></div>
+
+        <button
+            id="resetQuizBtn"
+            class="btn-secondary"
+            style="margin-top: 2rem;">Retake Quiz</button
+        >
+    </div>
+</div>
+
+<script src="../../js/quiz.js"></script>
+
+<style>
+    .quiz-container {
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 20px;
+        padding: 3rem;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .quiz-container {
+            background: rgba(30, 41, 59, 0.4);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--txt);
+        color: var(--bkg);
+        padding: 0.8rem 2rem;
+        border-radius: 9999px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+        border: none;
+        width: auto; /* Overrides global button width */
+        height: auto; /* Overrides global button height */
+        cursor: pointer;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .btn-primary {
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+        }
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem 2rem;
+        border-radius: 9999px;
+        border: 2px solid rgba(128, 128, 128, 0.3);
+        color: var(--txt);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+        background: transparent;
+        width: auto;
+        height: auto;
+        cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+        border-color: #6366f1;
+        color: #6366f1;
+    }
+
+    .quiz-step {
+        margin-bottom: 2.5rem;
+    }
+
+    .quiz-step .h3 {
+        margin-bottom: 1rem;
+    }
+
+    .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .radio-label {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .radio-label {
+            background: rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    .radio-label:hover {
+        background: rgba(99, 102, 241, 0.1);
+    }
+
+    .radio-label:has(input:checked) {
+        border-color: #6366f1;
+        background: rgba(99, 102, 241, 0.05);
+    }
+
+    .radio-label input {
+        accent-color: #6366f1;
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+
+    .radio-label span {
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+
+    .quiz-result {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .text-gradient {
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .recommended-container {
+        margin-top: 1.5rem;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    :global(.recommended-card) {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        overflow: hidden;
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    @media (min-width: 600px) {
+        :global(.recommended-card) {
+            flex-direction: row;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :global(.recommended-card) {
+            background: rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    :global(.recommended-card:hover) {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    :global(.recommended-img) {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    @media (min-width: 600px) {
+        :global(.recommended-img) {
+            width: 200px;
+            height: auto;
+        }
+    }
+
+    :global(.recommended-content) {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        flex: 1;
+    }
+
+    :global(.category-tag) {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #6366f1;
+        background: rgba(99, 102, 241, 0.1);
+        padding: 0.2rem 0.6rem;
+        border-radius: 9999px;
+    }
+
+    :global(.recommended-title) {
+        font-size: 1.4rem;
+        margin: 0;
+        font-weight: 700;
+    }
+
+    :global(.recommended-desc) {
+        font-size: 0.95rem;
+        opacity: 0.8;
+        line-height: 1.5;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    :global(.read-more) {
+        margin-top: 0.5rem;
+        font-weight: 600;
+        color: #6366f1;
+    }
+</style>

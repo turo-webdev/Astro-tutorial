@@ -1,0 +1,63 @@
+---
+import PostCard from "../PostCard.astro";
+
+const { recentPosts } = Astro.props;
+---
+
+<section class="recent-section container">
+    <header class="section-header">
+        <h2>Latest Insights</h2>
+    </header>
+    <div class="post-container">
+        {recentPosts.map((post: any) => <PostCard post={post} />)}
+    </div>
+    <div class="more-articles">
+        <a href="/blog" class="btn-secondary">Browse Complete Archive</a>
+    </div>
+</section>
+
+<style>
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 1rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .section-header {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .more-articles {
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;
+    }
+
+    .btn-secondary {
+        display: inline-block;
+        padding: 0.8rem 2rem;
+        border-radius: 9999px;
+        border: 2px solid rgba(128, 128, 128, 0.3);
+        color: var(--txt);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+        border-color: #6366f1;
+        color: #6366f1;
+    }
+</style>

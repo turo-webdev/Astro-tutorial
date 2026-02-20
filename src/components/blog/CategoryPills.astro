@@ -1,0 +1,71 @@
+---
+const { categories, activeCategory = "all" } = Astro.props;
+---
+
+<div class="category-pills" id="categoryPills">
+    <a
+        href="/blog"
+        class={`category-pill ${activeCategory === "all" ? "active" : ""}`}
+        data-filter="all"
+    >
+        All Posts
+    </a>
+    {
+        categories.map((category: string) => (
+            <a
+                href={`/blog/category/${category}`}
+                data-filter={category}
+                class={`category-pill ${activeCategory === category ? "active" : ""}`}
+            >
+                {category}
+            </a>
+        ))
+    }
+</div>
+
+<style>
+    .category-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .category-pill {
+        padding: 0.4rem 1.2rem;
+        border-radius: 9999px;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: var(--txt, #334155);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        cursor: pointer;
+        font-family: inherit;
+        width: auto;
+        height: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .category-pill {
+            background-color: rgba(15, 23, 42, 0.6);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+    }
+
+    .category-pill:hover,
+    .category-pill.active {
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+    }
+</style>

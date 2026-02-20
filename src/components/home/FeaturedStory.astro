@@ -1,0 +1,211 @@
+---
+const { featuredPost } = Astro.props;
+---
+
+{
+    featuredPost && (
+        <section class="featured-section container" id="latest">
+            <header class="section-header">
+                <h2>Featured Story</h2>
+                <a href="/blog" class="view-all">
+                    View All
+                </a>
+            </header>
+            <div class="featured-grid">
+                <div class="featured-image-wrapper">
+                    <img
+                        src={featuredPost.frontmatter.image.url}
+                        alt={featuredPost.frontmatter.image.alt}
+                        class="featured-image"
+                    />
+                    <div class="featured-overlay" />
+                </div>
+                <div class="featured-content">
+                    {featuredPost.frontmatter.category && (
+                        <span class="category-tag">
+                            {featuredPost.frontmatter.category}
+                        </span>
+                    )}
+                    <h3 class="featured-title">
+                        <a href={featuredPost.url}>
+                            {featuredPost.frontmatter.title}
+                        </a>
+                    </h3>
+                    <p class="featured-excerpt">
+                        {featuredPost.frontmatter.description}
+                    </p>
+                    <div class="featured-meta">
+                        <span class="author">
+                            By {featuredPost.frontmatter.author}
+                        </span>
+                        <span class="date">
+                            {new Date(
+                                featuredPost.frontmatter.date,
+                            ).toLocaleDateString()}
+                        </span>
+                    </div>
+                    <a href={featuredPost.url} class="read-more">
+                        Read Full Story &rarr;
+                    </a>
+                </div>
+            </div>
+        </section>
+    )
+}
+
+<style>
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 1rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .section-header {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .view-all {
+        color: #6366f1;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .view-all:hover {
+        text-decoration: underline;
+    }
+
+    /* Featured Section */
+    .featured-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 20px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .featured-grid {
+            background: rgba(30, 41, 59, 0.4);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+
+    @media (min-width: 900px) {
+        .featured-grid {
+            grid-template-columns: 1.5fr 1fr;
+            align-items: center;
+        }
+    }
+
+    .featured-image-wrapper {
+        position: relative;
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+    }
+
+    @media (min-width: 900px) {
+        .featured-image-wrapper {
+            height: 100%;
+            min-height: 350px;
+        }
+    }
+
+    .featured-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .featured-grid:hover .featured-image {
+        transform: scale(1.05);
+    }
+
+    .featured-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.4));
+    }
+
+    .featured-content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 1.25rem;
+    }
+
+    @media (min-width: 900px) {
+        .featured-content {
+            padding: 3rem;
+        }
+    }
+
+    .category-tag {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #6366f1;
+    }
+
+    .featured-title {
+        font-size: 1.6rem;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .featured-title a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .featured-excerpt {
+        font-size: 1rem;
+        opacity: 0.8;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .featured-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.9rem;
+        opacity: 0.6;
+    }
+
+    .read-more {
+        margin-top: 1rem;
+        display: inline-flex;
+        align-items: center;
+        color: var(--bkg);
+        background: var(--txt);
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.2s ease;
+    }
+
+    .read-more:hover {
+        transform: translateX(5px);
+    }
+</style>

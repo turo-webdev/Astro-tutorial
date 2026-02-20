@@ -1,0 +1,269 @@
+---
+const { post } = Astro.props;
+---
+
+<article class="am-card" data-category={post.frontmatter.category}>
+    <a
+        href={post.url}
+        class="am-card-full-link"
+        aria-label={`Read ${post.frontmatter.title}`}></a>
+    {
+        post.frontmatter.image ? (
+            <img
+                src={post.frontmatter.image.url}
+                alt={post.frontmatter.image.alt}
+                class="am-card-bg"
+            />
+        ) : (
+            <div class="am-card-bg fallback-bg" />
+        )
+    }
+
+    <div class="am-card-overlay"></div>
+
+    <div class="am-card-content">
+        {
+            post.frontmatter.category && (
+                <a
+                    href={`/blog/category/${post.frontmatter.category}`}
+                    class="am-card-category"
+                >
+                    {post.frontmatter.category}
+                </a>
+            )
+        }
+        <span class="am-card-subtitle"
+            >{new Date(post.frontmatter.date).toLocaleDateString()} • {
+                post.frontmatter.author
+            }</span
+        >
+        <h3 class="am-card-title">{post.frontmatter.title}</h3>
+        <p class="am-card-desc">{post.frontmatter.description}</p>
+    </div>
+
+    <button
+        class="copy-btn"
+        aria-label="Copy Link"
+        title="Copy Link"
+        data-url={post.url}
+    >
+        <svg
+            class="copy-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path
+                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+            ></path></svg
+        >
+        <svg
+            class="check-icon"
+            style="display: none;"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><polyline points="20 6 9 17 4 12"></polyline></svg
+        >
+    </button>
+</article>
+
+<script src="../js/postCard.js"></script>
+
+<style>
+    .am-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        aspect-ratio: 3 / 2; /* Editorial landscape aspect ratio */
+        border-radius: 12px;
+        overflow: hidden;
+        text-decoration: none;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+        transition:
+            transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+            box-shadow 0.3s ease;
+        background-color: #2c2c2c; /* Fallback color */
+    }
+
+    .am-card-full-link {
+        position: absolute;
+        inset: 0;
+        z-index: 5; /* Sit above most elements but below the copy/category buttons */
+    }
+
+    .am-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .am-card-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+        transition: transform 0.5s ease;
+    }
+
+    .am-card:hover .am-card-bg {
+        transform: scale(1.05);
+    }
+
+    .fallback-bg {
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    }
+
+    .am-card-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 65%;
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.7) 0%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        mask-image: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 1) 30%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        -webkit-mask-image: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 1) 30%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        z-index: 2;
+    }
+
+    .am-card-content {
+        position: relative;
+        z-index: 3;
+        padding: 1rem;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        text-align: left;
+    }
+
+    .am-card-category {
+        align-self: flex-start;
+        background: rgba(99, 102, 241, 0.85);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 9999px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+        box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 10;
+        position: relative;
+        transition:
+            transform 0.2s ease,
+            background 0.2s ease;
+    }
+
+    .am-card-category:hover {
+        transform: translateY(-2px);
+        background: rgba(99, 102, 241, 1);
+    }
+
+    .am-card-subtitle {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 2px;
+    }
+
+    .am-card-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 0;
+        color: white;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .am-card-desc {
+        font-size: 0.85rem;
+        font-weight: 400;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .copy-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        opacity: 0;
+        transform: scale(0.9);
+        transition:
+            opacity 0.2s ease,
+            transform 0.2s ease,
+            background 0.2s ease,
+            color 0.2s ease;
+        box-shadow: none;
+        cursor: pointer;
+    }
+
+    .am-card:hover .copy-btn {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .copy-btn:hover {
+        background: rgba(0, 0, 0, 0.7);
+        transform: scale(1.1);
+    }
+
+    /* Make the button turn green when showing the checkmark */
+    .copy-btn:has(.check-icon[style*="block"]) {
+        background: rgba(16, 185, 129, 0.8) !important;
+        border-color: rgba(16, 185, 129, 1);
+        color: white;
+    }
+</style>

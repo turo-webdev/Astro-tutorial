@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PostCard from "../../components/PostCard.astro";
+import CategoryPills from "../../components/blog/CategoryPills.astro";
+
+// Astro glob automatically fetches all matching files in the directory!
+const allPosts = await Astro.glob("./*.md");
+
+// Sort the posts by date, newest first
+allPosts.sort(
+    (a, b) =>
+        new Date(b.frontmatter.date).valueOf() -
+        new Date(a.frontmatter.date).valueOf(),
+);
+
+// Get unique categories from all posts
+const categories = [
+    ...new Set(
+        allPosts.map((post) => post.frontmatter.category).filter(Boolean),
+    ),
+];
+---
+
+<Layout title="Blog" description="Read all my latest posts!">
+    <header class="container">
+        <h1 class="h1">My <span>Blog</span></h1>
+        <p>
+            Explore all the latest updates, tutorials, and deep-dives about web
+            development and technology.
+        </p>
+
+        <CategoryPills categories={categories} />
+    </header>
+
+    <div class="container post-container">
+        {allPosts.map((post) => <PostCard post={post} />)}
+    </div>
+</Layout>
