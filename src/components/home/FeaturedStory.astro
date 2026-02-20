@@ -18,6 +18,8 @@ const base = import.meta.env.BASE_URL;
                         src={featuredPost.frontmatter.image.url}
                         alt={featuredPost.frontmatter.image.alt}
                         class="featured-image"
+                        fetchpriority="high"
+                        decoding="async"
                     />
                     <div class="featured-overlay" />
                 </div>
